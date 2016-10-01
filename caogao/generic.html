@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Sidebar制作</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets1/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body>
+           
+		<!-- Page Wrapper -->
+			
+				
+                        
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>关于侧拉菜单功能的实现</h2>
+							<p>运用css+js实现</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+                                 
+                                <h2>Step 1</h2>
+                                <p>
+                                	首先分析要实现的一些关键部分。页面暗化、侧拉菜单的出现、隐藏，以及之间衔接问题。
+                                </p>
+
+
+								<h2>Step 2</h2>
+								<p>
+
+
+								接着是准备工作，百度cdn下载jQuery.js,并导入本地assets中。
+								   在index.html中导入main.css,main.js以及jQuery.js<br />
+								   然后建两个div,分别制作页面暗化效果和侧拉菜单。便于后面操作，类名或id分别叫做mask和sidebar。当然首先你的一个ul中的click标签已经准备好,通过它来激发js中的方法,注意我们先给他起个名叫sidebar_trigger，便于后面js中function调用。具体几段代码如下：
+								   <xmp>
+ /*暗化效果*/
+<div class="mask"></div>
+
+/*侧拉菜单*/
+<div id="sidebar">
+<ul>
+ <li><a href="caogao/generic.html">关于侧拉菜单制作</a></li>
+ <li><a href="#">item1</a></li>
+ <li><a href="#">item1</a></li>
+ <li><a href="#">item1</a></li>
+ <li><a href="#">item1</a></li>
+ </ul>
+</div>
+
+/*click链接*/
+ <div id="menu2">
+  <ul>
+    <li id="sidebar_trigger">
+    <a href="#" class="menuToggle">MENU</a>
+    </li>
+  </ul>
+</div>
+</xmp>
+</p>
+									<h2>Step 3 </h2>
+									<p>
+										下面为main.js中的关于mask和sidebar样式处理
+										<xmp>
+											
+.mask											
+{
+display: none;//隐藏样式
+position: fixed;
+top:0;
+bottom: 0;
+right: 0;
+left: 0;
+background: rgba(0,0,0,0.3);
+
+
+
+}
+	#sidebar
+	{
+	
+	  position:fixed;
+	  top:0;
+	  left:-300px;//暂时隐藏于左侧面
+	  bottom: 0;
+      width: 300px;
+      background: #444;
+      color: #fff;
+       padding: 20px 0;
+       transition: left 0.5s;//平滑过渡进入
+       font-family: "微软雅黑";
+	}
+
+	//一些多余样式的清除
+	#sidebar ul
+	{
+list-style: none;
+padding: 0;
+margin: 0;
+text-decoration: none;
+	}
+	#sidebar ul a
+	{
+	 color:#fff;
+     text-decoration: none;
+     padding: 10px 30px;
+     width: 100%;
+     display: inline-block;
+
+	}
+	#sidebar ul a:hover
+	{
+    background: #444;
+   text-decoration: none;
+	}
+										</xmp>
+ 
+									</p>
+									<h2>Step 4</h2>
+
+                                  <p>
+                                  接下来就是最至关重要的部分，js方法的实现和中间过程的衔接。不多说，直接上码：
+                                  <xmp>
+;$(function()
+{
+   'use strict';
+
+
+  var sidebar = $('#sidebar'),//选择侧栏
+  mask=$('.mask'),
+  sidebar_trigger=$('#sidebar_trigger');
+
+/*写两个方法*/
+  function showSideBar()//点击滑出
+  {
+    mask.fadeIn();
+   sidebar.css('left',0);//位置
+
+  }
+
+  function hideSideBar()
+  {
+   mask.fadeOut();
+   sidebar.css('left',-sidebar.width());//位置
+
+  }
+
+/*激发*/
+  sidebar_trigger.on('click',showSideBar)
+  mask.on('click',hideSideBar)
+ 
+
+
+})
+
+
+                                  </xmp>
+
+
+                                  </p>
+
+								<hr />
+
+								<h4>个人实际操作体验</h4>
+								<p>
+									虽然一个效果大体思路有了，但是其中有许多小细节值得注意，不处理好，会出现很多的问题。举几个例子:
+								</p>
+
+								<p>
+								<ul>
+									<li>mask的diaplay:none;具体在哪个步骤操作中使用
+									</li>
+                                    <li>菜单栏在触发之前该怎么隐藏</li>
+                                    <li>
+                                    	css样式的一些处理，如transition
+                                    </li>
+								</ul>
+									
+
+								</p>
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<!--<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+							<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>-->
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Yinni 1.2</li><li>Wish you a better future!</a></li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets1/js/jquery.min.js"></script>
+			<script src="assets1/js/jquery.scrollex.min.js"></script>
+			<script src="assets1/js/jquery.scrolly.min.js"></script>
+			<script src="assets1/js/skel.min.js"></script>
+			<script src="assets1/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets1/js/main.js"></script>
+
+	</body>
+</html>
