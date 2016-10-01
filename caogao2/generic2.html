@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Return Top制作</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets2/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body>
+           
+		<!-- Page Wrapper -->
+			
+				
+                        
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>关于返回顶部功能的实现</h2>
+							<p>运用css+js实现</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+                                 
+                                <h2>Step 1</h2>
+                                <p>
+                                	关于这个功能的实现并不太难，只是有一些细节处理需要注意。如超出窗口高度自动淡出以及刷新时在主页面的淡出。
+                                </p>
+
+
+								<h2>Step 2</h2>
+								<p>首先建立一个button按钮，类名为back-to-top,css处理样式如下：
+
+
+								   <xmp>
+<button class="back-to-top">返回顶部</button>								   
+ .back-to-top
+	{
+		background: rgba(255,255,255,0.4);
+       font-size: 15px;
+	   font-family: "微软雅黑";
+       position: fixed;
+       bottom:30px;
+       right: 10px; 
+       border: 0.5px solid #888;
+       
+
+	}
+</xmp>
+</p>
+									<h2>Step 3 </h2>
+									<p>
+										下面为使用js实现细节功能：
+										<xmp>
+;$(function()
+{
+   'use strict';
+
+ backButton=$('.back-to-top'),
+ backButton.on('click',function()
+ {
+   
+    $('html,body').animate(  /*上滑*/
+     {
+      scrollTop:0
+     },800)  /*速度*/
+ })
+
+$(window).on('scroll',function()
+{
+    if($(window).scrollTop()>$(window).height()) /*淡入淡出判断*/
+        backButton.fadeIn();
+    else 
+	    backButton.fadeOut();
+})
+$(window).trigger('scroll');/*主页面不予显示*/
+})
+											
+
+										</xmp>
+ 
+									</p>
+									
+								<hr />
+
+								<h4>自己的体悟</h4>
+								<p>
+									学会一个，很多类似都可以同理运用
+								</p>
+
+								<p>
+								<ul>
+									
+								</ul>
+									
+
+								</p>
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<!--<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+							<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>-->
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Yinni 1.2</li><li>Wish you a better future!</a></li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets2/js/jquery.min.js"></script>
+			<script src="assets2/js/jquery.scrollex.min.js"></script>
+			<script src="assets2/js/jquery.scrolly.min.js"></script>
+			<script src="assets2/js/skel.min.js"></script>
+			<script src="assets2/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets2/js/main.js"></script>
+
+	</body>
+</html>
